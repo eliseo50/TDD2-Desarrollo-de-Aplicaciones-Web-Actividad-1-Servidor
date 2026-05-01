@@ -13,21 +13,21 @@ El servidor expone endpoints para crear, listar y eliminar elementos de cada tip
 Antes de ejecutar el proyecto es necesario tener instalado:
 
 - Node.js
-- pnpm
+- npm
 
 ### Pasos
 
 1. Clonar el repositorio.
 
 ```bash
-git clone [URL_DEL_REPOSITORIO]
-cd "ToDo List - Server"
+git clone https://github.com/eliseo50/TDD2-Desarrollo-de-Aplicaciones-Web-Actividad-1-Servidor.git
+cd "ToDoList - Server"
 ```
 
 2. Instalar las dependencias del proyecto.
 
 ```bash
-pnpm install
+npm install
 ```
 
 3. Configurar las variables de entorno creando un archivo `.env` en la carpeta raíz del proyecto.
@@ -42,14 +42,14 @@ VITE_CLIENT_URL=http://localhost:5173
 4. Iniciar la aplicación en modo desarrollo.
 
 ```bash
-pnpm run dev
+npm run dev
 ```
 
 Para compilar y ejecutar en producción:
 
 ```bash
-pnpm run build
-pnpm start
+npm run build
+npm start
 ```
 
 ## Funcionalidad
