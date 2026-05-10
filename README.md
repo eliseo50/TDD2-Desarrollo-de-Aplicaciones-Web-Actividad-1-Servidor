@@ -61,8 +61,6 @@ El servidor incluye las siguientes funcionalidades principales:
 - Eliminar tareas y metas existentes.
 - Autenticación mediante middleware.
 
-
-
 ## Arquitectura
 
 El backend está construido utilizando:
@@ -116,17 +114,47 @@ Contienen la lógica para cada endpoint:
 
 ## Endpoints
 
-Todos los endpoints requieren autenticación y están expuestos bajo el prefijo:
+Todos los endpoints requieren autenticación mediante el header:
+
+```
+Authorization: <API_KEY>
+```
+
+El `API_KEY` se configura en el archivo `.env` con la variable `API_KEY`.
+
+Todos los endpoints están expuestos bajo el prefijo:
 
 ```
 /api
 ```
+
+### Códigos de Respuesta
+
+| Código  | Descripción                                           |
+| ------- | ----------------------------------------------------- |
+| **200** | Respuesta satisfactoria.                              |
+| **400** | Parámetros inválidos o faltantes al agregar/eliminar. |
+| **401** | API Key incorrecta o ausente.                         |
+| **404** | Recurso no encontrado al eliminar.                    |
 
 ### Tareas
 
 **GET /api/getTasks**
 
 Obtiene la lista de tareas.
+
+**Respuesta 200:**
+
+```json
+[
+  {
+    "id": "uuid",
+    "name": "string",
+    "description": "string",
+    "date": "dd-mm-yyyy"
+  }
+]
+```
 
 **POST /api/addTask**
 
@@ -138,7 +166,26 @@ Ejemplo de body:
 {
   "name": "string",
   "description": "string",
-  "date": "string"
+  "date": "dd-mm-yyyy"
+}
+```
+
+**Respuesta 200:**
+
+```json
+{
+  "id": "uuid",
+  "name": "string",
+  "description": "string",
+  "date": "dd-mm-yyyy"
+}
+```
+
+**Respuesta 400:** (si faltan campos obligatorios)
+
+```json
+{
+  "message": "Item invalido"
 }
 ```
 
@@ -146,11 +193,59 @@ Ejemplo de body:
 
 Elimina una tarea por su id.
 
+Ejemplo de body:
+
+```json
+{
+  "id": "string"
+}
+```
+
+**Respuesta 200:**
+
+```json
+{
+  "id": "uuid",
+  "name": "string",
+  "description": "string",
+  "date": "dd-mm-yyyy"
+}
+```
+
+**Respuesta 400:** (si falta el ID)
+
+```json
+{
+  "message": "ID requerido"
+}
+```
+
+**Respuesta 404:** (si el ID no existe)
+
+```json
+{
+  "message": "Item no encontrado"
+}
+```
+
 ### Metas
 
 **GET /api/getGoals**
 
 Obtiene la lista de metas.
+
+**Respuesta 200:**
+
+```json
+[
+  {
+    "id": "uuid",
+    "name": "string",
+    "description": "string",
+    "date": "dd-mm-yyyy"
+  }
+]
+```
 
 **POST /api/addGoal**
 
@@ -162,10 +257,64 @@ Ejemplo de body:
 {
   "name": "string",
   "description": "string",
-  "date": "string"
+  "date": "dd-mm-yyyy"
+}
+```
+
+**Respuesta 200:**
+
+```json
+{
+  "id": "uuid",
+  "name": "string",
+  "description": "string",
+  "date": "dd-mm-yyyy"
+}
+```
+
+**Respuesta 400:** (si faltan campos obligatorios)
+
+```json
+{
+  "message": "Item invalido"
 }
 ```
 
 **DELETE /api/removeGoal**
 
 Elimina una meta por su id.
+
+Ejemplo de body:
+
+```json
+{
+  "id": "string"
+}
+```
+
+**Respuesta 200:**
+
+```json
+{
+  "id": "uuid",
+  "name": "string",
+  "description": "string",
+  "date": "dd-mm-yyyy"
+}
+```
+
+**Respuesta 400:** (si falta el ID)
+
+```json
+{
+  "message": "ID requerido"
+}
+```
+
+**Respuesta 404:** (si el ID no existe)
+
+```json
+{
+  "message": "Item no encontrado"
+}
+```
